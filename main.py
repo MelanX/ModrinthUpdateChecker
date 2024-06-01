@@ -88,7 +88,7 @@ def send_new_version(webhook_url: str, data: dict, project: str, version: str):
                              headers={'Content-Type': 'application/json'})
     print(f'New version "{info['name']}" in "{data[project]['title']}"')
     if response.status_code != requests.codes.ok:
-        print(f'Error: {response.text}')
+        print(f'Error: {response.content}')
 
 
 def main(webhook_url: str, projects_file: str):
