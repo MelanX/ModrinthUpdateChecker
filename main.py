@@ -122,7 +122,7 @@ def main(webhook_url: str, projects_file: str):
             cache[project] = data[project]['versions']
 
     with open('last_checked.json', 'w') as f:
-        f.write(json.dumps(cache))
+        f.write(json.dumps(cache, indent=2))
 
 
 if __name__ == '__main__':
