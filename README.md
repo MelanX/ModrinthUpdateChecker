@@ -5,11 +5,17 @@ If there are any updates, a notification will be sent to a Discord webhook.
 
 ## Usage
 
-1. Make sure you have Python 3.12 installed on your system.
-2. Install the `requests` library with pip install requests.
-3. A webhook URL should be passed as a command-line argument when running the program. If the program is run without
-   a webhook URL it will exit with an error message.
-4. The `projects.txt` file containing the list of projects is necessary for the program to run. The program will check
-   each project for updates.
-5. This script caches the last checked versions in a file called `last_checked.json`. It will be created on first run.
-   Not yet processed projects will not generate a notification for each version, only after first run.
+### Prerequisites
+
+1. Install Python 3.12
+2. `pip install -r requirements.txt`
+
+### Run script
+
+`python main.py <discord_webhook_url> <projects_file>`
+The file is a text file with the modrinth slug of each mod on Modrinth in each line.
+
+### Cache
+
+When running, it'll create a file called `last_checked.json` which contains all versions for each project which will not
+be checked since they were already checked, or were already present on first run.

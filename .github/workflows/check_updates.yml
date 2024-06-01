@@ -21,7 +21,9 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Run script
-        run: python main.py ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          python main.py ${{ secrets.DISCORD_WEBHOOK }} melanx.txt
+          python main.py ${{ secrets.DISCORD_WEBHOOK_2 }} noeppi.txt
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:

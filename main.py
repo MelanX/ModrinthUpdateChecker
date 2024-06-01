@@ -91,8 +91,8 @@ def send_new_version(webhook_url: str, data: dict, project: str, version: str):
         print(f'Error: {response.text}')
 
 
-def main(webhook_url: str):
-    with open('projects.txt', 'r') as f:
+def main(webhook_url: str, projects_file: str):
+    with open(projects_file, 'r') as f:
         projects = f.read().split('\n')
 
     cache = {}
@@ -126,8 +126,8 @@ def main(webhook_url: str):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        main(sys.argv[1])
+    if len(sys.argv) == 3:
+        main(sys.argv[1], sys.argv[2])
     else:
-        print('Please provide a webhook URL as a command line argument.')
+        print('Please provide a webhook URL and a projects file as command line arguments.')
         sys.exit(os.EX_IOERR)
