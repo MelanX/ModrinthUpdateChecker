@@ -7,6 +7,8 @@ on:
 jobs:
   check_updates:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,7 +23,7 @@ jobs:
       - name: Run script
         run: python main.py ${{ secrets.DISCORD_WEBHOOK }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update last_checked.json
           file_pattern: last_checked.json
