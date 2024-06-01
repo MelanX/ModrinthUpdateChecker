@@ -119,7 +119,8 @@ def main(webhook_url: str, projects_file: str):
                     send_new_version(webhook_url, data, project, version)
         if project not in cache:
             print(f'New project found: {data[project]['title']}')
-            cache[project] = data[project]['versions']
+        
+        cache[project] = data[project]['versions']
 
     with open('last_checked.json', 'w') as f:
         f.write(json.dumps(cache, indent=2))
