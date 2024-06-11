@@ -2,6 +2,7 @@ aiot-botania
 automatic-tool-swap
 boohoo
 botanical-machinery
+cavestone
 curse-of-curses
 data-trader
 defaultworldtype

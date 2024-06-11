@@ -30,18 +30,19 @@ def build_embeds(project_info: dict, version: dict):
     changelog = version['changelog']
     timestamp = convert_timestamp_to_unix(date_published)
     slug = project_info['slug']
+    project_type = project_info['project_type']
 
     embed = {
         'title': f'New file released <t:{timestamp}:R>!',
         'author': {
             'name': project_info['title'],
-            'url': f'https://modrinth.com/mod/{slug}',
+            'url': f'https://modrinth.com/{project_type}/{slug}',
             'icon_url': project_info['icon_url']
         },
         'fields': [
             {
                 'name': 'File version',
-                'value': f'[{version_number}](https://modrinth.com/mod/{slug}/version/{version_id})',
+                'value': f'[{version_number}](https://modrinth.com/{project_type}/{slug}/version/{version_id})',
                 'inline': True
             },
             {
@@ -52,7 +53,8 @@ def build_embeds(project_info: dict, version: dict):
             {
                 'name': 'Loader' + ('s' if len(loaders) > 1 else ''),
                 'value': '\n'.join(
-                    [f'[{loader.title()}](https://modrinth.com/mods?g=categories:%27{loader}%27)' for loader in
+                    [f'[{loader.title()}](https://modrinth.com/{project_type}s?g=categories:%27{loader}%27)' for loader
+                     in
                      loaders]),
                 'inline': True
             },
@@ -119,7 +121,7 @@ def main(webhook_url: str, projects_file: str):
                     send_new_version(webhook_url, data, project, version)
         if project not in cache:
             print(f'New project found: {data[project]['title']}')
-        
+
         cache[project] = data[project]['versions']
 
     with open('last_checked.json', 'w') as f:
