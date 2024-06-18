@@ -21,6 +21,10 @@ def convert_timestamp_to_unix(timestamp: str):
     return int(timestamp)
 
 
+def truncate(text: str, limit: int):
+    return text if len(text) <= limit else text[:limit - 3] + '...'
+
+
 def build_embeds(project_info: dict, version: dict):
     version_id = version['id']
     version_number = version['version_number']
@@ -35,7 +39,7 @@ def build_embeds(project_info: dict, version: dict):
     embed = {
         'title': f'New file released <t:{timestamp}:R>!',
         'author': {
-            'name': project_info['title'],
+            'name': truncate(project_info['title'], 256),
             'url': f'https://modrinth.com/{project_type}/{slug}',
             'icon_url': project_info['icon_url']
         },
@@ -47,20 +51,19 @@ def build_embeds(project_info: dict, version: dict):
             },
             {
                 'name': 'Game version' + ('s' if len(game_versions) > 1 else ''),
-                'value': '\n'.join(game_versions),
+                'value': truncate('\n'.join(game_versions), 1024),
                 'inline': True
             },
             {
                 'name': 'Loader' + ('s' if len(loaders) > 1 else ''),
-                'value': '\n'.join(
+                'value': truncate('\n'.join(
                     [f'[{loader.title()}](https://modrinth.com/{project_type}s?g=categories:%27{loader}%27)' for loader
-                     in
-                     loaders]),
+                     in loaders]), 1024),
                 'inline': True
             },
             {
                 'name': 'Changelog',
-                'value': changelog,
+                'value': truncate(changelog, 1024),
                 'inline': False
             }
         ],
@@ -70,7 +73,7 @@ def build_embeds(project_info: dict, version: dict):
         'timestamp': date_published,
         'footer': {
             'icon_url': 'https://cdn.modrinth.com/data/ZrwIGI6c/ca5c1a959e5f23bdc3482c7acbaa1d47ec3a0bd5.png',
-            'text': 'Sent by Modrinth Update Checker'
+            'text': 'Sent by Modrinth Update Checker',
         },
         'color': project_info['color']
     }
@@ -89,8 +92,8 @@ def send_new_version(webhook_url: str, data: dict, project: str, version: str):
     response = requests.post(webhook_url, json=msg,
                              headers={'Content-Type': 'application/json'})
     print(f'New version "{info['name']}" in "{data[project]['title']}"')
-    if response.status_code != requests.codes.ok:
-        print(f'Error: {response.content}')
+    if not response.ok:
+        print(f'Error: {response.status_code}\n{response.content}')
 
 
 def main(webhook_url: str, projects_file: str):
