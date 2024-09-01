@@ -1,8 +1,10 @@
 aiot-botania
+analyzer
 automatic-tool-swap
 boohoo
 botanical-machinery
 cavestone
+cucurbita
 curse-of-curses
 data-trader
 defaultworldtype
@@ -11,11 +13,13 @@ excavar
 extra-disks
 jea
 maledicta
+melanx-tweaks
 morexfood
 morevanillaarmor
 morevanillalib
 morevanillatools
 pack-essentials
+present-stand
 recipe-printer
 simple-backups
 simply-harvesting
