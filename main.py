@@ -123,7 +123,11 @@ def main(webhook_url: str, projects_file: str):
                 if version not in cache[project]:
                     send_new_version(webhook_url, data, project, version)
         if project not in cache:
-            print(f'New project found: {data[project]['title']}')
+            try:
+                print(f'New project found: {data[project]['title']}')
+            except KeyError:
+                print('Project not found in data: ' + project)
+                print(json.dumps(data, indent=2))
 
         cache[project] = data[project]['versions']
 
