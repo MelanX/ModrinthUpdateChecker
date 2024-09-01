@@ -98,7 +98,8 @@ def send_new_version(webhook_url: str, data: dict, project: str, version: str):
 
 def main(webhook_url: str, projects_file: str):
     with open(projects_file, 'r') as f:
-        projects = f.read().split('\n')
+        projects = f.read().splitlines()
+        projects = [project for project in projects if project.strip() and not project.startswith('#')]
 
     cache = {}
     if os.path.exists('last_checked.json'):

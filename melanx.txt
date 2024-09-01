@@ -1,4 +1,5 @@
 aiot-botania
+analyzer
 automatic-tool-swap
 boohoo
 botanical-machinery
