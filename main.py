@@ -72,7 +72,7 @@ def build_embeds(project_info: dict, version: dict):
         },
         'timestamp': date_published,
         'footer': {
-            'icon_url': 'https://cdn.modrinth.com/data/ZrwIGI6c/ca5c1a959e5f23bdc3482c7acbaa1d47ec3a0bd5.png',
+            'icon_url': 'https://raw.githubusercontent.com/modrinth/code/refs/heads/main/apps/app/icons/Square284x284Logo.png',
             'text': 'Sent by Modrinth Update Checker',
         },
         'color': project_info['color']
@@ -86,7 +86,7 @@ def send_new_version(webhook_url: str, data: dict, project: str, version: str):
     print(json.dumps(embeds))
     msg = {
         'username': 'Modrinth',
-        'avatar_url': 'https://cdn.modrinth.com/data/ZrwIGI6c/ca5c1a959e5f23bdc3482c7acbaa1d47ec3a0bd5.png',
+        'avatar_url': 'https://raw.githubusercontent.com/modrinth/code/refs/heads/main/apps/app/icons/Square284x284Logo.png',
         'embeds': embeds
     }
     response = requests.post(webhook_url, json=msg,
